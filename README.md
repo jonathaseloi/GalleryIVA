@@ -21,6 +21,14 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 
+2. Layout
+```
+<jonathaseloi.br.galleryiva.GalleryIVAView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/gallery_view" />  
+```
+
 # Installation
 Gradle:
 
