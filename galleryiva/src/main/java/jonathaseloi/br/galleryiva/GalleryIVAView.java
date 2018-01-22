@@ -16,14 +16,14 @@ import jonathaseloi.br.galleryiva.adapters.ViewPagerAdapter;
  * Created by Jonathas Eloi on 22/01/18.
  */
 
-public class GalleryActivityView extends DrawerLayout {
+public class GalleryIVAView extends DrawerLayout {
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private AppBarLayout appBarLayout;
     private ViewPager viewPager;
 
-    private int tabGravity = TabLayout.GRAVITY_CENTER;
+    private int tabGravity = TabLayout.GRAVITY_FILL;
     private int tabMode = TabLayout.MODE_FIXED;
 
     private Boolean images = true;
@@ -38,19 +38,19 @@ public class GalleryActivityView extends DrawerLayout {
     private String[] pathVideos = {"%/Galeria/videos%"};
     private String[] pathFiles = {"%/Galeria/files%"};
 
-    public GalleryActivityView(Context context) {
+    public GalleryIVAView(Context context) {
         super(context);
         inflate(context, R.layout.activity_gallery, this);
         init();
     }
 
-    public GalleryActivityView(Context context, @Nullable AttributeSet attrs) {
+    public GalleryIVAView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         inflate(context, R.layout.activity_gallery, this);
         init();
     }
 
-    public GalleryActivityView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public GalleryIVAView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         inflate(context, R.layout.activity_gallery, this);
         init();

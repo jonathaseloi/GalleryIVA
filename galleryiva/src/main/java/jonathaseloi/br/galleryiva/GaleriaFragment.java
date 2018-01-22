@@ -243,7 +243,7 @@ public class GaleriaFragment extends Fragment implements ImagensAdapter.ItemCami
         }
     }
 
-    //Calcular quantos itens serao exibidos por linha
+    //Calcular quantos itens serao exibidos por linha (tamanho fixo)
     public int calculateNoOfColumns(Context context) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         float dpWidth = displayMetrics.widthPixels / displayMetrics.density;

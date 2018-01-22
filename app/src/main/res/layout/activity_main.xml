@@ -8,12 +8,9 @@
     android:orientation="vertical"
     tools:context="jonathaseloi.br.galeriaiva.MainActivity">
 
-    <jonathaseloi.br.galleryiva.GalleryActivityView
+    <jonathaseloi.br.galleryiva.GalleryIVAView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/gallery_view"
-        app:tabGravity="center"
-        app:tabMode="fixed"
-        />
+        android:id="@+id/gallery_view" />
 </LinearLayout>
 
