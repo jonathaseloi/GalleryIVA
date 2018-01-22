@@ -4,10 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Vibrator;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -27,6 +30,7 @@ public class ImagensAdapter extends RecyclerView.Adapter<ImagensAdapter.MyViewHo
     private int oldpos = -1;
     private Vibrator vibe;
     private ItemCaminho itemCaminho;
+    private int numItens = 3;
 
     private List<String> imagespath = new ArrayList<>();
 
@@ -48,6 +52,9 @@ public class ImagensAdapter extends RecyclerView.Adapter<ImagensAdapter.MyViewHo
         notifyItemInserted(getItemCount());
     }
 
+    public void redImages(int numItens){
+        this.numItens = numItens;
+    }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
@@ -123,7 +130,10 @@ public class ImagensAdapter extends RecyclerView.Adapter<ImagensAdapter.MyViewHo
         holder.ivIconeVideo.setVisibility(GONE);
         holder.tvNomeArquivo.setVisibility(GONE);
 
-        Picasso.with(holder.ivImagemArquivo.getContext()).load(new File(imagepath)).resize(120, 120).centerCrop().into(holder.ivImagemArquivo);
+        Picasso.with(holder.ivImagemArquivo.getContext()).load(new File(imagepath)).fit().centerCrop().into(holder.ivImagemArquivo);
+
+        FrameLayout.LayoutParams parms = new FrameLayout.LayoutParams(holder.context.getResources().getDisplayMetrics().widthPixels/numItens,holder.context.getResources().getDisplayMetrics().widthPixels/numItens);
+        holder.ivImagemArquivo.setLayoutParams(parms);
 
         if(selected.size() > 0 && selected.get(position)){
             holder.itemselected.setVisibility(View.VISIBLE);
@@ -134,6 +144,8 @@ public class ImagensAdapter extends RecyclerView.Adapter<ImagensAdapter.MyViewHo
             holder.itemselected.setVisibility(GONE);
         }
     }
+
+
 
     @Override
     public int getItemCount() {

@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         galleryIVAView.tabVideos(false);
         galleryIVAView.tabGravity(TabLayout.GRAVITY_FILL);
         galleryIVAView.setPathImages("/Pictures/");
+        galleryIVAView.setNumColumns(2);
 
         setSupportActionBar(galleryIVAView.getToolbar());
         galleryIVAView.setupViewPager(getSupportFragmentManager());

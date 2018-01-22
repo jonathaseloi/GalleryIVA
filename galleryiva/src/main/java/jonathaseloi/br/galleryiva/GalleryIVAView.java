@@ -38,6 +38,8 @@ public class GalleryIVAView extends DrawerLayout {
     private String[] pathVideos = {"%/Galeria/videos%"};
     private String[] pathFiles = {"%/Galeria/files%"};
 
+    private int numColumns = 2;
+
     public GalleryIVAView(Context context) {
         super(context);
         inflate(context, R.layout.activity_gallery, this);
@@ -91,13 +93,13 @@ public class GalleryIVAView extends DrawerLayout {
         ViewPagerAdapter adapter = new ViewPagerAdapter(fragmentManager);
 
         if (images)
-            adapter.addFrag(new GaleriaFragment().newInstance("Imagens", pathImages, R.layout.fragment_imagens, R.id.recycler_view_imagens), tabImagesTitle);
+            adapter.addFrag(new GaleriaFragment().newInstance("Imagens", pathImages, R.layout.fragment_imagens, R.id.recycler_view_imagens, numColumns), tabImagesTitle);
 
         if (videos)
-            adapter.addFrag(new GaleriaFragment().newInstance("Videos", pathVideos, R.layout.fragment_videos, R.id.recycler_view_videos), tabVideosTitle);
+            adapter.addFrag(new GaleriaFragment().newInstance("Videos", pathVideos, R.layout.fragment_videos, R.id.recycler_view_videos, numColumns), tabVideosTitle);
 
         if (files)
-            adapter.addFrag(new GaleriaFragment().newInstance("Outros", pathFiles, R.layout.fragment_outros, R.id.recycler_view_outros), tabFilesTitle);
+            adapter.addFrag(new GaleriaFragment().newInstance("Outros", pathFiles, R.layout.fragment_outros, R.id.recycler_view_outros, numColumns), tabFilesTitle);
         viewPager.setOffscreenPageLimit(3);
         viewPager.setAdapter(adapter);
 
@@ -143,5 +145,9 @@ public class GalleryIVAView extends DrawerLayout {
 
     public Toolbar getToolbar() {
         return toolbar;
+    }
+
+    public void setNumColumns(int numColumns) {
+        this.numColumns = numColumns;
     }
 }

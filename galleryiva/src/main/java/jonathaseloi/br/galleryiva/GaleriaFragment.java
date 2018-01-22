@@ -45,14 +45,15 @@ public class GaleriaFragment extends Fragment implements ImagensAdapter.ItemCami
     RecyclerView recyclerView;
     String type;
     String[] path;
-    int layout, recycleview;
+    int layout, recycleview, numColumns;
 
-    public static GaleriaFragment newInstance(String type, String[] path, int layout, int recycleview) {
+    public static GaleriaFragment newInstance(String type, String[] path, int layout, int recycleview, int numColumns) {
         Bundle bundle = new Bundle();
         bundle.putString("type", type);
         bundle.putStringArray("path", path);
         bundle.putInt("layout", layout);
         bundle.putInt("recycleview", recycleview);
+        bundle.putInt("numColumns", numColumns);
 
         GaleriaFragment fragment = new GaleriaFragment();
         fragment.setArguments(bundle);
@@ -66,6 +67,7 @@ public class GaleriaFragment extends Fragment implements ImagensAdapter.ItemCami
             path = bundle.getStringArray("path");
             layout = bundle.getInt("layout");
             recycleview = bundle.getInt("recycleview");
+            numColumns = bundle.getInt("numColumns");
         }
     }
 
@@ -98,8 +100,8 @@ public class GaleriaFragment extends Fragment implements ImagensAdapter.ItemCami
 
         recyclerView = (RecyclerView) getActivity().findViewById(recycleview);
 
-        int mNoOfColumns = calculateNoOfColumns(getActivity());
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), mNoOfColumns);
+//        int mNoOfColumns = calculateNoOfColumns(getActivity());
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), numColumns);
 
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new SpaceColUtils(2));
@@ -107,7 +109,7 @@ public class GaleriaFragment extends Fragment implements ImagensAdapter.ItemCami
 
         switch (type){
             case "Imagens":
-
+                imagensAdapter.redImages(numColumns);
                 recyclerView.setAdapter(imagensAdapter);
 
                 if (!permissaoAcessoArquivo(getActivity())) {
@@ -116,12 +118,12 @@ public class GaleriaFragment extends Fragment implements ImagensAdapter.ItemCami
                 break;
 
             case "Videos":
-
+                imagensAdapter.redImages(numColumns);
                 recyclerView.setAdapter(videosAdapter);
                 break;
 
             default:
-
+                imagensAdapter.redImages(numColumns);
                 recyclerView.setAdapter(textoAdapter);
                 break;
         }
