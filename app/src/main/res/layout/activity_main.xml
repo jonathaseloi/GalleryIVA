@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,20 +8,12 @@
     android:orientation="vertical"
     tools:context="jonathaseloi.br.galeriaiva.MainActivity">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:id="@+id/etLowCase"/>
-
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:id="@+id/btnConvert"
-        android:text="Convert to UpperCase"
-        android:layout_gravity="center_horizontal"/>
-
-    <TextView
+    <jonathaseloi.br.galleryiva.GalleryActivityView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/tvUpperCase"/>
+        android:id="@+id/gallery_view"
+        app:tabGravity="center"
+        app:tabMode="fixed"
+        />
 </LinearLayout>
+
