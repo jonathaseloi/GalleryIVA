@@ -4,11 +4,14 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.PointF;
+import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+
+import jonathaseloi.br.galleryiva.GaleriaImagemActivity;
 
 public class GaleriaImagemUtils extends android.support.v7.widget.AppCompatImageView {
     Matrix matrix = new Matrix();
