@@ -3,8 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/menu_crop"
+        android:icon="@drawable/ic_crop_rotate_white_24dp"
+        android:title="Crop"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/menu_compartilhar"
         android:icon="@drawable/ic_share_white"
         android:title="Share"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/menu_save"
+        android:icon="@drawable/ic_check_white_24dp"
+        android:title="Crop"
         app:showAsAction="ifRoom"/>
 </menu>

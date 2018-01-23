@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.MyViewHold
     private Vibrator vibe;
     private ItemCaminho itemCaminho;
     private List<String> videopath = new ArrayList<>();
+    private int numItens = 3;
 
     public void setVideos(List<String> videopath) {
         this.videopath = videopath;
@@ -46,6 +48,9 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.MyViewHold
         notifyItemInserted(getItemCount());
     }
 
+    public void redImages(int numItens){
+        this.numItens = numItens;
+    }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
@@ -129,7 +134,9 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.MyViewHold
         holder.ivIconeVideo.setVisibility(View.VISIBLE);
         holder.tvNomeArquivo.setVisibility(GONE);
 
-        picassoInstance.load(videoRequestHandlerUtils.SCHEME_VIDEO+":"+videopat).resize(120, 120).centerCrop().into(holder.ivImagemArquivo);
+        picassoInstance.load(videoRequestHandlerUtils.SCHEME_VIDEO+":"+videopat).fit().centerCrop().centerCrop().into(holder.ivImagemArquivo);
+        FrameLayout.LayoutParams parms = new FrameLayout.LayoutParams(holder.context.getResources().getDisplayMetrics().widthPixels/numItens,holder.context.getResources().getDisplayMetrics().widthPixels/numItens);
+        holder.ivImagemArquivo.setLayoutParams(parms);
         if(selected.size() > 0 && selected.get(position)){
             holder.itemselected.setVisibility(View.VISIBLE);
             holder.itemView.setSelected(true);

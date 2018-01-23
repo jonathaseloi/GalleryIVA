@@ -39,6 +39,9 @@ public class GalleryIVAView extends DrawerLayout {
     private String[] pathFiles = {"%/Galeria/files%"};
 
     private int numColumns = 2;
+    private int numColumnsImagens = numColumns;
+    private int numColumnsVideos = numColumns;
+    private int numColumnsFiles = numColumns;
 
     public GalleryIVAView(Context context) {
         super(context);
@@ -93,13 +96,13 @@ public class GalleryIVAView extends DrawerLayout {
         ViewPagerAdapter adapter = new ViewPagerAdapter(fragmentManager);
 
         if (images)
-            adapter.addFrag(new GaleriaFragment().newInstance("Imagens", pathImages, R.layout.fragment_imagens, R.id.recycler_view_imagens, numColumns), tabImagesTitle);
+            adapter.addFrag(new GaleriaFragment().newInstance("Imagens", pathImages, R.layout.fragment_imagens, R.id.recycler_view_imagens, numColumnsImagens), tabImagesTitle);
 
         if (videos)
-            adapter.addFrag(new GaleriaFragment().newInstance("Videos", pathVideos, R.layout.fragment_videos, R.id.recycler_view_videos, numColumns), tabVideosTitle);
+            adapter.addFrag(new GaleriaFragment().newInstance("Videos", pathVideos, R.layout.fragment_videos, R.id.recycler_view_videos, numColumnsVideos), tabVideosTitle);
 
         if (files)
-            adapter.addFrag(new GaleriaFragment().newInstance("Outros", pathFiles, R.layout.fragment_outros, R.id.recycler_view_outros, numColumns), tabFilesTitle);
+            adapter.addFrag(new GaleriaFragment().newInstance("Outros", pathFiles, R.layout.fragment_outros, R.id.recycler_view_outros, numColumnsFiles), tabFilesTitle);
         viewPager.setOffscreenPageLimit(3);
         viewPager.setAdapter(adapter);
 
@@ -141,6 +144,25 @@ public class GalleryIVAView extends DrawerLayout {
 
     public void setPathFiles(String path) {
         pathFiles = new String[] {"%" + path + "%"};
+    }
+
+    //Config number of Columns
+    public void setNumColumnsImagens(int numColumns) {
+        this.numColumnsImagens = numColumns;
+    }
+
+    public void setNumColumnsVideos(int numColumns) {
+        this.numColumnsVideos = numColumns;
+    }
+
+    public void setNumColumnsFiles(int numColumns) {
+        this.numColumnsFiles = numColumns;
+    }
+
+    public void setNumColumnsAll(int numColumns) {
+        this.numColumnsVideos = numColumns;
+        this.numColumnsImagens = numColumns;
+        this.numColumnsFiles = numColumns;
     }
 
     public Toolbar getToolbar() {

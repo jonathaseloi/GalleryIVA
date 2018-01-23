@@ -1,8 +1,10 @@
 package jonathaseloi.br.galleryiva;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -24,6 +26,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
 import java.io.File;
@@ -41,11 +44,14 @@ public class GaleriaFragment extends Fragment implements ImagensAdapter.ItemCami
     TextoAdapter textoAdapter;
 
     MenuItem compartilhar;
+    MenuItem rotate;
 
     RecyclerView recyclerView;
     String type;
     String[] path;
     int layout, recycleview, numColumns;
+
+    private String caminho;
 
     public static GaleriaFragment newInstance(String type, String[] path, int layout, int recycleview, int numColumns) {
         Bundle bundle = new Bundle();
@@ -107,9 +113,15 @@ public class GaleriaFragment extends Fragment implements ImagensAdapter.ItemCami
         recyclerView.addItemDecoration(new SpaceColUtils(2));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
+        initAdapters();
+    }
+
+    private void initAdapters() {
         switch (type){
             case "Imagens":
+                imagensAdapter.clear();
                 imagensAdapter.redImages(numColumns);
+                imagensAdapter.setPath(path[0]);
                 recyclerView.setAdapter(imagensAdapter);
 
                 if (!permissaoAcessoArquivo(getActivity())) {
@@ -118,12 +130,12 @@ public class GaleriaFragment extends Fragment implements ImagensAdapter.ItemCami
                 break;
 
             case "Videos":
-                imagensAdapter.redImages(numColumns);
+                videosAdapter.redImages(numColumns);
                 recyclerView.setAdapter(videosAdapter);
                 break;
 
             default:
-                imagensAdapter.redImages(numColumns);
+                textoAdapter.redImages(numColumns);
                 recyclerView.setAdapter(textoAdapter);
                 break;
         }
@@ -174,6 +186,7 @@ public class GaleriaFragment extends Fragment implements ImagensAdapter.ItemCami
 
     public void onResume() {
         super.onResume();
+        initAdapters();
     }
 
     //Search files, Images, Videos
@@ -258,6 +271,7 @@ public class GaleriaFragment extends Fragment implements ImagensAdapter.ItemCami
         inflater.inflate(R.menu.menu_compartilhar, menu);
 
         compartilhar = menu.findItem(R.id.menu_compartilhar);
+
         compartilhar.setVisible(false);
 
         super.onCreateOptionsMenu(menu, inflater);
@@ -267,8 +281,15 @@ public class GaleriaFragment extends Fragment implements ImagensAdapter.ItemCami
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int i = item.getItemId();
-        if (i == R.id.menu_compartilhar) {
+        if (i == R.id.menu_compartilhar && caminho != null) {
             Log.e("compartilhar", "COMPARTILHAR");
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"+caminho));
+            if (type.equals("Imagens"))
+                shareIntent.setType("image/jpeg");
+            startActivity(Intent.createChooser(shareIntent, "Send To"));
+
             return true;
         } else {
             return super.onOptionsItemSelected(item);
@@ -278,6 +299,7 @@ public class GaleriaFragment extends Fragment implements ImagensAdapter.ItemCami
     @Override
     public void getItemCaminho(String caminho){
         Log.e("abrir icone", caminho);
+        this.caminho = caminho;
         if (compartilhar != null)
             compartilhar.setVisible(true);
     }

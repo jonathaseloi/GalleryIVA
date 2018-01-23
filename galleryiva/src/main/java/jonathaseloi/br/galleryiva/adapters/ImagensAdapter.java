@@ -34,6 +34,8 @@ public class ImagensAdapter extends RecyclerView.Adapter<ImagensAdapter.MyViewHo
 
     private List<String> imagespath = new ArrayList<>();
 
+    private String path;
+
     public void setImagens(List<String> imagespath) {
         this.imagespath = imagespath;
     }
@@ -44,6 +46,10 @@ public class ImagensAdapter extends RecyclerView.Adapter<ImagensAdapter.MyViewHo
             this.selected.add(false);
             notifyItemInserted(getItemCount());
         }
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public void addImagem(String path) {
@@ -81,31 +87,32 @@ public class ImagensAdapter extends RecyclerView.Adapter<ImagensAdapter.MyViewHo
         public void onClick(View v) {
             Intent intent = new Intent(getContext(), GaleriaImagemActivity.class);
             intent.putExtra("caminho", imagespath.get(getAdapterPosition()));
+            intent.putExtra("path", path);
             getContext().startActivity(intent);
         }
 
         //Seleciona a imagem
         @Override
         public boolean onLongClick(View view) {
-//            FIXME : SHARE
-//            if(!view.isSelected()){
-//                vibe.vibrate(50);
-//
-//                if(oldpos!= -1 && oldpos!=getAdapterPosition()){
-//                    selected.set(oldpos, false);
-//                    notifyItemChanged(oldpos);
-//                }
-//
-//                selected.set(getAdapterPosition(), true);
-//                oldpos = getAdapterPosition();
-//                itemCaminho.getItemCaminho(imagespath.get(getAdapterPosition()));
-//            }
-//            else{
-//                selected.set(getAdapterPosition(), false);
-//                oldpos = -1;
-//                itemCaminho.EsconderIcone();
-//            }
-//            notifyItemChanged(getAdapterPosition());
+//            FIXME : SHARE Multiples
+            if(!view.isSelected()){
+                vibe.vibrate(50);
+
+                if(oldpos!= -1 && oldpos!=getAdapterPosition()){
+                    selected.set(oldpos, false);
+                    notifyItemChanged(oldpos);
+                }
+
+                selected.set(getAdapterPosition(), true);
+                oldpos = getAdapterPosition();
+                itemCaminho.getItemCaminho(imagespath.get(getAdapterPosition()));
+            }
+            else{
+                selected.set(getAdapterPosition(), false);
+                oldpos = -1;
+                itemCaminho.EsconderIcone();
+            }
+            notifyItemChanged(getAdapterPosition());
 
             return true;
         }

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ public class TextoAdapter extends RecyclerView.Adapter<TextoAdapter.MyViewHolder
     private Vibrator vibe;
     private ItemCaminho itemCaminho;
     private List<String> outropath = new ArrayList<>();
+    private int numItens = 3;
 
     public void setOutros(List<String> videopath) {
         this.outropath = videopath;
@@ -48,6 +50,9 @@ public class TextoAdapter extends RecyclerView.Adapter<TextoAdapter.MyViewHolder
         notifyItemInserted(getItemCount());
     }
 
+    public void redImages(int numItens){
+        this.numItens = numItens;
+    }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
@@ -137,7 +142,9 @@ public class TextoAdapter extends RecyclerView.Adapter<TextoAdapter.MyViewHolder
         String outropat = outropath.get(position);
         String filename = outropat.substring(outropat.lastIndexOf("/") + 1);
 
-        Picasso.with(holder.ivImagemArquivo.getContext()).load(R.drawable.ic_file).resize(120, 120).centerCrop().into(holder.ivImagemArquivo);
+        Picasso.with(holder.ivImagemArquivo.getContext()).load(R.drawable.ic_file).fit().centerCrop().into(holder.ivImagemArquivo);
+        FrameLayout.LayoutParams parms = new FrameLayout.LayoutParams(holder.context.getResources().getDisplayMetrics().widthPixels/numItens,holder.context.getResources().getDisplayMetrics().widthPixels/numItens);
+        holder.ivImagemArquivo.setLayoutParams(parms);
         if(filename.length() > 24)
             holder.tvNomeArquivo.setText(filename.substring(0, 21) + " ... " + filename.substring(filename.length() - 4));
         else{

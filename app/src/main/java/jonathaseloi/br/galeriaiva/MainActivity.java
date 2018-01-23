@@ -32,5 +32,4 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(galleryIVAView.getToolbar());
         galleryIVAView.setupViewPager(getSupportFragmentManager());
     }
-    
 }
