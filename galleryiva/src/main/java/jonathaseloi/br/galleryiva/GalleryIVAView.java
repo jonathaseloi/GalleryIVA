@@ -1,12 +1,16 @@
 package jonathaseloi.br.galleryiva;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 
@@ -34,9 +38,9 @@ public class GalleryIVAView extends DrawerLayout {
     private String tabVideosTitle = "Videos";
     private String tabFilesTitle = "Files";
 
-    private String[] pathImages = {"%/Galeria/images%"};
-    private String[] pathVideos = {"%/Galeria/videos%"};
-    private String[] pathFiles = {"%/Galeria/files%"};
+    private String[] pathImages = {"%/GalleryIVA/images%"};
+    private String[] pathVideos = {"%/GalleryIVA/videos%"};
+    private String[] pathFiles = {"%/GalleryIVA/files%"};
 
     private int numColumns = 2;
     private int numColumnsImagens = numColumns;
@@ -46,6 +50,7 @@ public class GalleryIVAView extends DrawerLayout {
     public GalleryIVAView(Context context) {
         super(context);
         inflate(context, R.layout.activity_gallery, this);
+
         init();
     }
 
@@ -92,7 +97,10 @@ public class GalleryIVAView extends DrawerLayout {
             tabLayout.setTabMode(mode);
     }
 
-    public void setupViewPager(FragmentManager fragmentManager) {
+    public void setupViewPager(AppCompatActivity activity, FragmentManager fragmentManager) {
+
+        activity.setSupportActionBar(toolbar);
+
         ViewPagerAdapter adapter = new ViewPagerAdapter(fragmentManager);
 
         if (images)
@@ -171,5 +179,14 @@ public class GalleryIVAView extends DrawerLayout {
 
     public void setNumColumns(int numColumns) {
         this.numColumns = numColumns;
+    }
+
+    @SuppressLint("ResourceAsColor")
+    public void setToolbarColor(Activity activity, int resId) {
+        toolbar.setBackgroundColor(resId);
+        tabLayout.setBackgroundColor(resId);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity.getWindow().setStatusBarColor(resId);
+        }
     }
 }

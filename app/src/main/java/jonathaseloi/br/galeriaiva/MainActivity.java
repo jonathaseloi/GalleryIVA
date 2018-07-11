@@ -9,17 +9,17 @@ import jonathaseloi.br.galleryiva.GalleryIVAView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private GalleryIVAView galleryIVAView;
+        private GalleryIVAView galleryIVAView;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
 
-        init();
-    }
+            init();
+        }
 
-    private void init() {
+        private void init() {
         galleryIVAView = findViewById(R.id.gallery_view);
 
         galleryIVAView.toolbarTitle("GalleryIVA");
@@ -28,8 +28,9 @@ public class MainActivity extends AppCompatActivity {
         galleryIVAView.setPathImages("/Pictures/");
         galleryIVAView.setPathFiles(Environment.getExternalStorageDirectory()+"/Download/");
         galleryIVAView.setNumColumns(2);
+        galleryIVAView.setToolbarColor(this, R.color.colorAccent);
 
-        setSupportActionBar(galleryIVAView.getToolbar());
-        galleryIVAView.setupViewPager(getSupportFragmentManager());
+//        setSupportActionBar(galleryIVAView.getToolbar());
+        galleryIVAView.setupViewPager(this, getSupportFragmentManager());
     }
 }

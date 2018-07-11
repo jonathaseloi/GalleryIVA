@@ -130,11 +130,13 @@ public class GaleriaFragment extends Fragment implements ImagensAdapter.ItemCami
                 break;
 
             case "Videos":
+                videosAdapter.clear();
                 videosAdapter.redImages(numColumns);
                 recyclerView.setAdapter(videosAdapter);
                 break;
 
             default:
+                textoAdapter.clear();
                 textoAdapter.redImages(numColumns);
                 recyclerView.setAdapter(textoAdapter);
                 break;
